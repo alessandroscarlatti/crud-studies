@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDom from 'react-dom'
+import TeamEditor from './TeamEditorComponent/TeamEditor'
 
 ReactDom.render(
-	<div>Hello World</div>,
+	<TeamEditor />,
 	document.querySelector("#app")
 )
