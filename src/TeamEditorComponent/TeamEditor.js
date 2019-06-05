@@ -6,32 +6,37 @@ export default class TeamEditor extends React.Component {
         super(props);
 
         this.state = {
-            penguins: [
-                {
-                    id: 0,
-                    state: "VIEW",
-                    data: {
-                        name: "phil"
-                    }
-                },
-                {
-                    id: 1,
-                    state: "VIEW",
-                    data: {
-                        name: "annie"
-                    }
-                }
-            ]
+            penguins: []
         }
 
+        this.initWithPenguins = this.initWithPenguins.bind(this);
+    }
+
+    initWithPenguins(rawPenguins) {
+        let penguins = [];
+        rawPenguins.forEach(rawPenguin => {
+            let penguin = {
+                state: "VIEW",
+                data: rawPenguin,
+            }
+            penguins.push(penguin);
+        })
+
+        this.setState({
+            penguins: penguins,
+        })
+    }
+
+    componentDidMount() {
+        // get the penguins from the repository
+        this.props.penguinRepository.getPenguins(this.initWithPenguins);
     }
 
     render() {
-
         let penguins = [];
 
         this.state.penguins.forEach(penguin => {
-            penguins.push(<ViewingPenguin />)
+            penguins.push(<ViewingPenguin key={penguin.data.id} penguin={penguin} />)
         })
 
         return (
